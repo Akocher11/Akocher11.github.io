@@ -769,7 +769,6 @@
 
     <!-- Témaváltó gomb -->
     <div class="theme-toggle-container">
-        <div class="theme-toggle-label" id="themeLabel">Világos</div>
         <div class="theme-toggle" id="themeToggle">
             <div class="toggle-slider">
                 <span class="toggle-icon sun-icon">☀️</span>
@@ -923,7 +922,7 @@
                         <div class="contact-icon">👤</div>
                         <div class="contact-text">
                             <p>Név</p>
-                            <p>Illés Balázs Gábor EV.</p>
+                            <p>Illés Balázs Gábor</p>
                         </div>
                     </div>
                 </div>
@@ -931,7 +930,7 @@
                 <div class="contact-form">
                     <h3>Küldj üzenetet</h3>
                     <div id="form-status" class="form-status"></div>
-                    <form id="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+                    <form id="contact-form" action="https://formspree.io/f/mpwlbyae" method="POST">
                         <div class="form-group">
                             <label for="name">Név</label>
                             <input type="text" id="name" name="name" required>
@@ -957,7 +956,7 @@
             <div class="footer-content">
                 <img src="printbee.png" alt="PrintBee Logo" class="footer-logo">
                 <div class="footer-info">
-                    <p>&copy; 2023 Illés Balázs Gábor EV. - Minden jog fenntartva.</p>
+                    <p>&copy; 2025 Illés Balázs Gábor - Minden jog fenntartva.</p>
                 </div>
             </div>
         </div>
@@ -973,17 +972,14 @@
             const savedTheme = localStorage.getItem('theme');
             if (savedTheme === 'dark') {
                 body.classList.add('dark-theme');
-                themeLabel.textContent = 'Sötét';
             }
             
             themeToggle.addEventListener('click', function() {
                 body.classList.toggle('dark-theme');
                 
                 if (body.classList.contains('dark-theme')) {
-                    themeLabel.textContent = 'Sötét';
                     localStorage.setItem('theme', 'dark');
                 } else {
-                    themeLabel.textContent = 'Világos';
                     localStorage.setItem('theme', 'light');
                 }
             });
