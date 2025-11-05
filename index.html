@@ -59,33 +59,41 @@
         }
 
         /* TELJES OLDALT BEFEDŐ HEXAGON HÁTTÉR */
+        /* Finom Hexagon háttér - vékony vonalak, neon hatással */
+        /* Extra finom Hexagon háttér - nagyon vékony vonalak */
+        /* Hexagon háttér - erősebb szín kontraszttal */
+        /* Extra kontrasztos Hexagon háttér */
         .hexagon-bg {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: -1;
-            opacity: 0.03;
-            overflow: hidden;
-        }
-
-        .hexagon-bg::before {
-            content: "";
-            position: absolute;
-            top: -100px;
-            left: -100px;
-            width: calc(100% + 200px);
-            height: calc(100% + 200px);
+            z-index: -2;
             background-image: 
-                /* Hexagon minta - jobbra dőlő vonalak */
-                linear-gradient(30deg, var(--primary-yellow) 12.5%, transparent 12.5%, transparent 37.5%, var(--primary-yellow) 37.5%, var(--primary-yellow) 62.5%, transparent 62.5%, transparent 87.5%, var(--primary-yellow) 87.5%),
-                /* Hexagon minta - balra dőlő vonalak */
-                linear-gradient(-30deg, var(--primary-yellow) 12.5%, transparent 12.5%, transparent 37.5%, var(--primary-yellow) 37.5%, var(--primary-yellow) 62.5%, transparent 62.5%, transparent 87.5%, var(--primary-yellow) 87.5%);
-            background-size: 173px 100px;
-            background-position: 0 0, 86px 50px;
+                url("data:image/svg+xml,%3Csvg width='120' height='104' viewBox='0 0 120 104' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M60 0 L104 26 L104 78 L60 104 L16 78 L16 26 Z' fill='none' stroke='%23cc6600' stroke-width='1.5'/%3E%3C/svg%3E"),
+                url("data:image/svg+xml,%3Csvg width='120' height='104' viewBox='0 0 120 104' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M60 0 L104 26 L104 78 L60 104 L16 78 L16 26 Z' fill='none' stroke='%23cc6600' stroke-width='1.5'/%3E%3C/svg%3E");
+            background-size: 120px 104px;
+            background-position: 0 0, 60px 52px;
         }
 
+        body:not(.dark-theme) .hexagon-bg {
+            opacity: 0.18;
+            filter: 
+                drop-shadow(0 0 1px rgba(204, 102, 0, 0.5))
+                drop-shadow(0 0 2px rgba(204, 102, 0, 0.3));
+        }
+
+        body.dark-theme .hexagon-bg {
+            opacity: 0.18;
+            background-image: 
+                url("data:image/svg+xml,%3Csvg width='120' height='104' viewBox='0 0 120 104' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M60 0 L104 26 L104 78 L60 104 L16 78 L16 26 Z' fill='none' stroke='%23ffdd00' stroke-width='1.2'/%3E%3C/svg%3E"),
+                url("data:image/svg+xml,%3Csvg width='120' height='104' viewBox='0 0 120 104' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M60 0 L104 26 L104 78 L60 104 L16 78 L16 26 Z' fill='none' stroke='%23ffdd00' stroke-width='1.2'/%3E%3C/svg%3E");
+            filter: 
+                drop-shadow(0 0 2px rgba(255, 221, 0, 0.6))
+                drop-shadow(0 0 4px rgba(255, 221, 0, 0.4))
+                drop-shadow(0 0 6px rgba(255, 221, 0, 0.2));
+        }
         .container {
             max-width: 1200px;
             margin: 0 auto;
