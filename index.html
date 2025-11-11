@@ -489,6 +489,9 @@
             transform: translateY(30px);
             position: relative;
             z-index: 2;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
         }
 
         .project-card.visible {
@@ -502,18 +505,43 @@
             box-shadow: 0 15px 30px var(--shadow);
         }
 
+        /* Képváltó animáció */
         .project-image {
+            position: relative;
             height: 200px;
             background-color: var(--medium-gray);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: var(--dark-gray);
-            font-size: 1.2rem;
+            overflow: hidden;
+            flex-shrink: 0;
         }
 
+        .image-slider {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        .slider-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transition: opacity 0.8s ease-in-out;
+        }
+
+        .slider-image.active {
+            opacity: 1;
+        }
+
+        /* Tartalom rész */
         .project-content {
             padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
 
         .project-title {
@@ -524,6 +552,7 @@
 
         .project-description {
             color: var(--dark-gray);
+            line-height: 1.5;
         }
 
         /* Kapcsolat szekció */
@@ -841,7 +870,10 @@
             <div class="projects-grid">
                 <div class="project-card">
                     <div class="project-image">
-                        Kép 1
+                        <div class="image-slider">
+                        <img src="assets/kep1_1.png" alt="Egyedi Prototípus 1" class="slider-image active">
+                        <img src="assets/kep1_2.png" alt="Egyedi Prototípus 2" class="slider-image">
+                        </div>
                     </div>
                     <div class="project-content">
                         <h3 class="project-title">Egyedi Prototípus</h3>
@@ -851,7 +883,10 @@
                 
                 <div class="project-card">
                     <div class="project-image">
-                        Kép 2
+                        <div class="image-slider">
+                            <img src="assets/kep2_1.png" alt="Funkcionális Alkalmazás 1" class="slider-image active">
+                            <img src="assets/kep2_2.png" alt="Funkcionális Alkalmazás 2" class="slider-image">
+                        </div>
                     </div>
                     <div class="project-content">
                         <h3 class="project-title">Funkcionális Alkalmazás</h3>
@@ -861,8 +896,12 @@
                 
                 <div class="project-card">
                     <div class="project-image">
-                        Kép 3
+                        <div class="image-slider">
+                            <img src="assets/kep3_1.png" alt="Dekoratív Tárgy 1" class="slider-image active">
+                            <img src="assets/kep3_2.png" alt="Dekoratív Tárgy 2" class="slider-image">
+                        </div>
                     </div>
+                    
                     <div class="project-content">
                         <h3 class="project-title">Dekoratív Tárgy</h3>
                         <p class="project-description">Eszttétikailag kifinomult, dekoratív célra készült 3D nyomtatás.</p>
@@ -871,7 +910,10 @@
                 
                 <div class="project-card">
                     <div class="project-image">
-                        Kép 4
+                        <div class="image-slider">
+                            <img src="assets/kep4_1.png" alt="Műszaki Alkalmazás 1" class="slider-image active">
+                            <img src="assets/kep4_2.png" alt="Műszaki Alkalmazás 2" class="slider-image">
+                        </div>
                     </div>
                     <div class="project-content">
                         <h3 class="project-title">Műszaki Alkalmazás</h3>
@@ -881,7 +923,10 @@
                 
                 <div class="project-card">
                     <div class="project-image">
-                        Kép 5
+                        <div class="image-slider">
+                            <img src="assets/kep5_1.png" alt="Egyedi Ajándék 1" class="slider-image active">
+                            <img src="assets/kep5_2.png" alt="Egyedi Ajándék 2" class="slider-image">
+                        </div>
                     </div>
                     <div class="project-content">
                         <h3 class="project-title">Egyedi Ajándék</h3>
@@ -891,7 +936,10 @@
                 
                 <div class="project-card">
                     <div class="project-image">
-                        Kép 6
+                        <div class="image-slider">
+                            <img src="assets/kep6_1.png" alt="Kreatív Megoldás 1" class="slider-image active">
+                            <img src="assets/kep6_2.png" alt="Kreatív Megoldás 2" class="slider-image">
+                        </div>
                     </div>
                     <div class="project-content">
                         <h3 class="project-title">Kreatív Megoldás</h3>
@@ -930,6 +978,13 @@
                         <div class="contact-text">
                             <p>Név</p>
                             <p>Illés Balázs Gábor</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">💼</div>
+                        <div class="contact-text">
+                            <p>Adószám</p>
+                            <p>91480497-1-22</p>
                         </div>
                     </div>
                 </div>
@@ -1052,7 +1107,7 @@
             function checkVisibility() {
                 animatedElements.forEach(el => {
                     const elementTop = el.getBoundingClientRect().top;
-                    const elementVisible = 150;
+                    const elementVisible = 600;
                     
                     if (elementTop < window.innerHeight - elementVisible) {
                         el.classList.add('visible');
@@ -1088,6 +1143,42 @@
             hamburger.classList.remove('active');
             navMenu.classList.remove('active');
         }));
+        // Képváltó animáció - JAVÍTOTT
+        function initImageSliders() {
+            const sliders = document.querySelectorAll('.image-slider');
+            
+            sliders.forEach(slider => {
+                const images = slider.querySelectorAll('.slider-image');
+                let currentIndex = 0;
+                
+                // Kezdeti állapot
+                images.forEach((img, index) => {
+                    if (index === 0) {
+                        img.classList.add('active');
+                    }
+                });
+                
+                // Képváltó interval
+                if (images.length > 1) {
+                    setInterval(() => {
+                        // Aktuális kép eltüntetése
+                        images[currentIndex].classList.remove('active');
+                        
+                        // Következő kép
+                        currentIndex = (currentIndex + 1) % images.length;
+                        
+                        // Új kép megjelenítése
+                        images[currentIndex].classList.add('active');
+                        
+                    }, 3000);
+                }
+            });
+        }
+
+        // Indítás
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(initImageSliders, 1000);
+        });
 
         // Inicializálás
         document.addEventListener('DOMContentLoaded', function() {
